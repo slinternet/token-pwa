@@ -6,13 +6,25 @@
     <title>Token Generator</title>
     <link rel="manifest" href="manifest.json">
     <script>
+        let progress = 0;
+
         function generarToken() {
             const intervalo = 10;
             const semilla = Math.floor(Date.now() / (intervalo * 1000));
-            const token = (semilla % 1000000).toString().padStart(6, '0');
+            const randomFactor = Math.floor(Math.random() * 1000000); // Generar un número aleatorio
+            const token = ((semilla + randomFactor) % 1000000).toString().padStart(6, '0');
             document.getElementById("token").innerText = token;
+            progress = 0;
         }
+
+        function actualizarBarra() {
+            progress += 10;
+            document.getElementById("progress-bar").style.width = `${progress}%`;
+            if (progress >= 100) progress = 0;
+        }
+
         setInterval(generarToken, 10000);
+        setInterval(actualizarBarra, 1000);
         window.onload = generarToken;
     </script>
     <style>
@@ -30,11 +42,29 @@
             font-size: 40px;
             color: #00ffcc;
         }
+        .progress-container {
+            width: 100%;
+            max-width: 300px;
+            height: 10px;
+            background: #444;
+            margin-top: 20px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: #00ffcc;
+            transition: width 1s linear;
+        }
     </style>
 </head>
 <body>
     <h2>Token de Seguridad</h2>
     <h1 id="token">Cargando...</h1>
     <p>El código cambia cada 10 segundos</p>
+    <div class="progress-container">
+        <div id="progress-bar" class="progress-bar"></div>
+    </div>
 </body>
 </html>
