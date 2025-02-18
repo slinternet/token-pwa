@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token Generator</title>
+    <link rel="manifest" href="manifest.json">
+    <script>
+        function generarToken() {
+            const intervalo = 10;
+            const semilla = Math.floor(Date.now() / (intervalo * 1000));
+            const token = (semilla % 1000000).toString().padStart(6, '0');
+            document.getElementById("token").innerText = token;
+        }
+        setInterval(generarToken, 10000);
+        window.onload = generarToken;
+    </script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+            color: white;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            font-size: 40px;
+            color: #00ffcc;
+        }
+    </style>
+</head>
+<body>
+    <h2>Token de Seguridad</h2>
+    <h1 id="token">Cargando...</h1>
+    <p>El código cambia cada 10 segundos</p>
+</body>
+</html>
