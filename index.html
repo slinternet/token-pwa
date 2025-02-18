@@ -9,7 +9,7 @@
         let progress = 0;
 
         function generarToken() {
-            const intervalo = 10;
+            const intervalo = 15;
             const semilla = Math.floor(Date.now() / (intervalo * 1000));
             const randomFactor = Math.floor(Math.random() * 1000000); // Generar un número aleatorio
             const token = ((semilla + randomFactor) % 1000000).toString().padStart(6, '0');
